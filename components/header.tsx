@@ -52,8 +52,13 @@ export function Header({ language, setLanguage, currentView, setView }: HeaderPr
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm border-b border-primary/10">
       <div className="container mx-auto px-4 py-4 flex items-center justify-between">
+        {/* Logo que retorna para a Home */}
         <button onClick={goToHome} className="flex items-center">
-          <img src="/logo-placeholder.jpg" alt="Salgaderia Maranato" className="h-10 md:h-12 w-auto" />
+          <img 
+            src="/maranato.png" 
+            alt="Salgaderia Maranato Logo" 
+            className="h-10 md:h-12 w-auto object-contain hover:opacity-90 transition-opacity" 
+          />
         </button>
 
         {/* Desktop Navigation */}
@@ -88,7 +93,7 @@ export function Header({ language, setLanguage, currentView, setView }: HeaderPr
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-background border-t border-primary/10"
+            className="md:hidden bg-background border-t border-primary/10 overflow-hidden"
           >
             <nav className="container mx-auto px-4 py-4 flex flex-col gap-4">
               {navLinks.map((link) => (

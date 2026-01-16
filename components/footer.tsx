@@ -51,13 +51,31 @@ export function Footer({ language }: FooterProps) {
           <div className="flex flex-col items-center gap-4">
             <p className="text-sm text-primary-foreground/70">{t.followUs}</p>
             <div className="flex items-center gap-6">
-              <a href="#" className="hover:text-accent transition-colors" aria-label="Facebook">
+              <a 
+                href="https://www.facebook.com/salgaderiaa/" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="hover:text-accent transition-colors" 
+                aria-label="Facebook"
+              >
                 <Facebook size={24} />
               </a>
-              <a href="#" className="hover:text-accent transition-colors" aria-label="Instagram">
+              <a 
+                href="https://www.instagram.com/salgaderia.maranato/" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="hover:text-accent transition-colors" 
+                aria-label="Instagram"
+              >
                 <Instagram size={24} />
               </a>
-              <a href="#" className="hover:text-accent transition-colors" aria-label="TikTok">
+              <a 
+                href="https://www.tiktok.com/@salgaderiamaranato01?_t=ZM-90xFlXOhWlE&_r=1" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="hover:text-accent transition-colors" 
+                aria-label="TikTok"
+              >
                 <TikTokIcon size={24} />
               </a>
             </div>
