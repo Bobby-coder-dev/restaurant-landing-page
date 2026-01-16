@@ -32,20 +32,21 @@ const translations = {
   },
 }
 
+// Atualizado para bater exatamente com os nomes dos arquivos na sua imagem
 const menuPages = [
-  "/menu/page-1.jpg",
-  "/menu/page-2.jpg",
-  "/menu/page-3.jpg",
-  "/menu/page-4.jpg",
-  "/menu/page-5.jpg",
-  "/menu/page-6.jpg",
-  "/menu/page-7.jpg",
-  "/menu/page-8.jpg",
-  "/menu/page-9.jpg",
-  "/menu/page-10.jpg",
-  "/menu/page-11.jpg",
-  "/menu/page-12.jpg",
-  "/menu/page-13.jpg",
+  "/encomenda_pgs/Maranato Menu 2025-imagens-0.jpg",
+  "/encomenda_pgs/Maranato Menu 2025-imagens-1.jpg",
+  "/encomenda_pgs/Maranato Menu 2025-imagens-2.jpg",
+  "/encomenda_pgs/Maranato Menu 2025-imagens-3.jpg",
+  "/encomenda_pgs/Maranato Menu 2025-imagens-4.jpg",
+  "/encomenda_pgs/Maranato Menu 2025-imagens-5.jpg",
+  "/encomenda_pgs/Maranato Menu 2025-imagens-6.jpg",
+  "/encomenda_pgs/Maranato Menu 2025-imagens-7.jpg",
+  "/encomenda_pgs/Maranato Menu 2025-imagens-8.jpg",
+  "/encomenda_pgs/Maranato Menu 2025-imagens-9.jpg",
+  "/encomenda_pgs/Maranato Menu 2025-imagens-10.jpg",
+  "/encomenda_pgs/Maranato Menu 2025-imagens-11.jpg",
+  "/encomenda_pgs/Maranato Menu 2025-imagens-12.jpg",
 ]
 
 export function EncomendasView({ language }: EncomendasViewProps) {
@@ -59,7 +60,6 @@ export function EncomendasView({ language }: EncomendasViewProps) {
       setDirection(-1)
       const newPage = currentPage - 1
       setCurrentPage(newPage)
-      // Preload adjacent pages
       setLoadedImages((prev) => new Set([...prev, newPage, Math.max(0, newPage - 1)]))
     }
   }
@@ -69,7 +69,6 @@ export function EncomendasView({ language }: EncomendasViewProps) {
       setDirection(1)
       const newPage = currentPage + 1
       setCurrentPage(newPage)
-      // Preload adjacent pages
       setLoadedImages((prev) => new Set([...prev, newPage, Math.min(menuPages.length - 1, newPage + 1)]))
     }
   }
@@ -77,7 +76,6 @@ export function EncomendasView({ language }: EncomendasViewProps) {
   const goToPage = (index: number) => {
     setDirection(index > currentPage ? 1 : -1)
     setCurrentPage(index)
-    // Preload adjacent pages
     setLoadedImages(
       (prev) => new Set([...prev, index, Math.max(0, index - 1), Math.min(menuPages.length - 1, index + 1)]),
     )
@@ -114,9 +112,7 @@ export function EncomendasView({ language }: EncomendasViewProps) {
           transition={{ delay: 0.2 }}
           className="max-w-3xl mx-auto"
         >
-          {/* Menu Viewer Container */}
           <div className="bg-secondary rounded-2xl shadow-2xl overflow-hidden border-4 border-primary/20">
-            {/* Page Display */}
             <div className="relative aspect-[3/4] md:aspect-[4/5] overflow-hidden bg-background">
               <AnimatePresence initial={false} custom={direction} mode="wait">
                 <motion.img
@@ -137,66 +133,56 @@ export function EncomendasView({ language }: EncomendasViewProps) {
                 />
               </AnimatePresence>
 
-              <div className="hidden">
-                {Array.from(loadedImages).map((index) => (
-                  <img key={`preload-${index}`} src={menuPages[index] || "/placeholder.svg"} alt="" loading="lazy" />
-                ))}
-              </div>
-
-              {/* Touch/Click areas for mobile */}
+              {/* Touch areas for mobile navigation */}
               <button
                 onClick={goToPrevious}
                 disabled={currentPage === 0}
-                className="absolute left-0 top-0 w-1/3 h-full z-10 cursor-pointer disabled:cursor-default md:hidden"
+                className="absolute left-0 top-0 w-1/4 h-full z-10 cursor-pointer disabled:hidden"
                 aria-label={t.previous}
               />
               <button
                 onClick={goToNext}
                 disabled={currentPage === menuPages.length - 1}
-                className="absolute right-0 top-0 w-1/3 h-full z-10 cursor-pointer disabled:cursor-default md:hidden"
+                className="absolute right-0 top-0 w-1/4 h-full z-10 cursor-pointer disabled:hidden"
                 aria-label={t.next}
               />
             </div>
 
-            {/* Navigation Controls */}
-            <div className="bg-primary/5 p-4 md:p-6">
+            {/* Controls */}
+            <div className="bg-primary/5 p-4 md:p-6 border-t border-primary/10">
               <div className="flex items-center justify-between gap-4">
-                {/* Previous Button */}
                 <button
                   onClick={goToPrevious}
                   disabled={currentPage === 0}
-                  className="flex items-center gap-2 px-4 py-2 md:px-6 md:py-3 bg-primary text-primary-foreground rounded-lg font-medium transition-all disabled:opacity-40 disabled:cursor-not-allowed hover:bg-primary/90"
+                  className="flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-lg font-medium disabled:opacity-30 transition-all"
                 >
                   <ChevronLeft size={20} />
                   <span className="hidden sm:inline">{t.previous}</span>
                 </button>
 
-                <div className="flex items-center gap-2">
-                  <span className="text-foreground font-semibold text-lg">
-                    {t.page} {currentPage + 1} {t.of} {menuPages.length}
-                  </span>
+                <div className="text-foreground font-semibold">
+                  {t.page} {currentPage + 1} {t.of} {menuPages.length}
                 </div>
 
-                {/* Next Button */}
                 <button
                   onClick={goToNext}
                   disabled={currentPage === menuPages.length - 1}
-                  className="flex items-center gap-2 px-4 py-2 md:px-6 md:py-3 bg-primary text-primary-foreground rounded-lg font-medium transition-all disabled:opacity-40 disabled:cursor-not-allowed hover:bg-primary/90"
+                  className="flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-lg font-medium disabled:opacity-30 transition-all"
                 >
                   <span className="hidden sm:inline">{t.next}</span>
                   <ChevronRight size={20} />
                 </button>
               </div>
 
-              <div className="flex justify-center gap-1.5 mt-4 flex-wrap max-w-xs mx-auto">
+              {/* Dots indicator */}
+              <div className="flex justify-center gap-1.5 mt-4 flex-wrap">
                 {menuPages.map((_, index) => (
                   <button
                     key={index}
                     onClick={() => goToPage(index)}
                     className={`w-2 h-2 rounded-full transition-all ${
-                      index === currentPage ? "bg-primary scale-125" : "bg-primary/30 hover:bg-primary/50"
+                      index === currentPage ? "bg-primary scale-125" : "bg-primary/20"
                     }`}
-                    aria-label={`${t.page} ${index + 1}`}
                   />
                 ))}
               </div>
@@ -204,20 +190,20 @@ export function EncomendasView({ language }: EncomendasViewProps) {
           </div>
         </motion.div>
 
-        {/* Order Now Section */}
+        {/* WhatsApp Order Button */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
           className="max-w-2xl mx-auto mt-12 text-center"
         >
-          <div className="bg-accent/20 rounded-2xl p-8 md:p-10">
-            <h2 className="font-serif text-2xl md:text-3xl font-bold text-primary mb-4">{t.orderNow}</h2>
+          <div className="bg-primary/5 rounded-2xl p-8 border border-primary/10">
+            <h2 className="font-serif text-2xl font-bold text-primary mb-6">{t.orderNow}</h2>
             <a
               href="https://wa.me/18623570818"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-3 bg-[#25D366] hover:bg-[#128C7E] text-white px-8 py-4 rounded-xl font-semibold text-lg transition-colors shadow-lg hover:shadow-xl"
+              className="inline-flex items-center gap-3 bg-[#25D366] hover:bg-[#128C7E] text-white px-10 py-4 rounded-full font-bold text-lg transition-all shadow-lg active:scale-95"
             >
               <MessageCircle size={24} />
               {t.orderVia}
